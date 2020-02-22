@@ -1,0 +1,69 @@
+การสร้างและการแยกbranch
+
+1. clone file เก่ามา และ เข้าไปใน directory นั้น
+    git clone <ลิงค์เว็บ> -> cd <ชื่อ directory ที่จะเข้า>
+2. สร้าง branch 
+    git branch <ชื่อ branch ที่สร้าง>
+3. ตรวจสอบ branch ว่ามี branch ไหนบ้าง (* อยู่ที่ชื่อใด แปลว่าปัจจุบันเราทำงานอยู่ใน branch นั้น)
+    git branch
+4. การเปลี่ยน branch และการที่จะไปที่ branch ที่ต้องการ 
+    git checkout <ชื่อ branch ที่ต้องการไป> และเพื่อให้แน่ใจว่าอยู่ในบ้านที่ต้องการแล้วให้ใช้คำสั่ง git branch แล้วดูที่ *ว่าอยู่หน้าชื่อ branch ที่เราต้องการหรือไม่
+
+การ Merge Branch แบบไม่มี Conflict
+
+5. ให้ไปที่ิ branch รอง สร้างไฟล์ที่มีข้อมูลที่ต้องการ เช็คไฟล์ว่าอยู่ใน branch ที่ต้องการมั้ย ทำการเพิ่มลงใน branch นั้นและ commit ตั้งชื่อให้เรียบร้อย
+    ชื่อไฟล์.นามสกุลไฟล์ -> git status -> git add ชื่อไฟล์.นามสกุล -> git commit -m "ตั้งชื่อให้ตรงกับงานที่ทำ" 
+6. หากทำงานใน branch รองเสร็จแล้ว ต้องการเปลี่ยน Branch และทำงานต่อ
+    git checkout <ชื่อ branch ที่ต้องการไปทำงาน> เมื่ออยู่ที่ branch ที่ต้องการทำงาน ให้เพิ่มไฟล์ใหม่ให้ทำเหมือน ข้อที่ 5 
+7. ทำการ checkpoint จะแสดงการทำงานทั้งหมดที่ได้ commit
+    git log --all --decorate --oneline --graph 
+8. ทำการ push file branch master ไปยัง github โดยไปที่ branch master ก่อนแล้ว push และเช็คว่าไฟล์งานนั้นถูกส่งไปหรือยัง
+    git push origin master -> git log --all --decorate --oneline --graph
+9. ทำการ push file branch feature ไปยัง github ทำเหมือนข้อที่ 8
+10. การ Merge คือการรวมงานจาก branch หนึ่ง ไปอีก branch หนึ่ง โดยไปที่ branch ที่ต้องการรวมไฟล์ และทำการ Merge งานใน Branch อีกอันนึงมา
+    git checkout master -> 	git merge feature
+11. git จะ commit ของการ merge นั้นเอง เราจึงต้อง commit message ด้วย vi 
+    กด esc แล้วพิมพ์ :wq! แล้วกด enter จะเห็นว่า feature1.txt ได้เข้าอยู่ใน branch master แล้ว ดูได้จาก git log adog จะเห็นการรวมของเส้น branch
+12. ทำการ push ขึ้น github เพื่อแสดงว่าได้ merge เสร็จแล้ว
+    git push origin master
+
+การ Pull แบบไม่มี Conflict
+
+<clone directory เป็นอีกตัวตนนึง>
+13. ทำการ clone ไฟล์โดยตั้งชื่อใหม่ และเข้าไปทำงานในไฟล์ที่ clone มา
+    git clone <ลิงค์เว็บ> ชื่อไฟล์ใหม่ -> cd ไฟล์ใหม่
+14. เพิ่มไฟล์ ทำการตั้งชื่อ ใส่ข้อมูลในไฟล์นั้น add , commit and push ลงไป
+    git add ชื่อไฟล์ -> git commit -m "add ชื่อไฟล์ by user2" -> git push origin master
+
+<กลับไป directory ตัวตนแรก>
+15. หากต้องการไฟล์ที่อยู่ในตัวตนที่2 ให้ทำการ pull 
+    git pull origin master
+
+การ Merge แบบมี Conflict
+
+16. สร้าง branch และสลับไปใช้ branchที่สร้างมา
+    git checkout -b ชื่อbranchใหม่
+17. เช็คให้แน่ใจว่าเข้ามาถูก branch และทำการแก้ไข้ไฟล์ จากนั้น add , commit , เช็คการทำงานว่าได้commitไปถึงไหนแล้ว จากนั้น เปลี่ยน  branchกลับไปที่ branch หลัก
+    git checkout ชื่อbranchใหม่ -> git add ไฟล์ที่แก้ -> git commit "ตั้งชื่อให้ตรกฃงกับที่ทำงานไป" -> git log --all --decorate --oneline --graph -> git checkout master
+18. เมื่อมาอยู่ใน branch หลักแล้ว ให้ทำการแก้ไขไฟล์ให้ต่างจากการแก้ไขไฟล์ใน branch รอง จากนั้น add , commit , เช็คการทำงานว่าได้commitไปถึงไหนแล้ว
+    git add ไฟล์ที่แก้ -> git commit "ตั้งชื่อให้ตรกฃงกับที่ทำงานไป" -> git log --all --decorate --oneline --graph
+19. กลับมาใน branch หลัก หรือเช็คให้แน่ใจว่าอยู่ใน branch หลักแล้ว แล้วทำการ merge branch ตัวตนอีกตัว
+    git checkout master -> git merge ชื่อbranchใหม่ 
+20. จะเห็นได้ว่า mergeไม่ได้ ให้เปิดไฟล์ที่แก้จะมี editor ก็เลือกว่าจะใช้ข้อมูลที่แก้จาก branchใด หากไม่มีจะต้องพิมพ์เอง
+21. หลังจากแก้ไข conflict เสร็จแล้ว ให้ add , commit and checkpoint จากนั้นทำการ push ขึ้น github
+
+การ Pull แบบมี Conflict
+
+<clone directory เป็นอีกตัวตนนึง>
+22. เข้าไปที่ไฟล์ที่ต้องการใช้งาน แล้วดึงไฟล์จาก master ลงมา ทำการแก้ไข จากนั้น add , commit , เช็คการทำงานว่าได้commitไปถึงไหนแล้ว แล้ว push ขึ้น github
+    cd ไฟล์ที่ต้องการทำงาน -> git pull origin master -> และทำการแก้ไข้ไฟล์ -> git add ชื่อไฟล์ -> git commit -m "ตั้งชื่อให้ตรงกับการทำงาน" -> git log --all --decorate --oneline --graph -> git push origin master
+
+<กลับไป directory ตัวตนแรก>
+23. เข้าไปที่ไฟล์ที่ต้องการใช้งาน ทำการแก้ไข จากนั้น add , commit , เช็คการทำงานว่าได้commitไปถึงไหนแล้ว
+    cd ไฟล์ที่ต้องการทำงาน -> ทำการแก้ไข้ไฟล์ -> git add ชื่อไฟล์ -> git commit -m "ตั้งชื่อให้ตรงกับการทำงาน" -> git log --all --decorate --oneline --graph
+24. ทำการ pull แล้ว แก้ไข conflict จากนั้น add , commit , เช็คการทำงานว่าได้commitไปถึงไหนแล้ว และ push แล้ว checkpoint
+    git pull origin master -> แก้ไข conflict -> git add ชื่อไฟล์ -> git commit -m "ตั้งชื่อให้ตรงกับการทำงาน" -> git push origin master -> git log --all --decorate --oneline --graph 
+
+<clone directory เป็นอีกตัวตนนึง>
+25. เข้าไปที่ไฟล์ที่ต้องการใช้งาน แล้ว checkpoint ทำการ pull แล้ว checkpoint
+    cd ไฟล์ที่ต้องการทำงาน -> git log --all --decorate --oneline --graph -> git pull origin master -> git log --all --decorate --oneline --graph
