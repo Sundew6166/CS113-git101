@@ -1,0 +1,34 @@
+การสร้าง Directory โดยใช้คำสั่ง mkdir name
+การดู directories และ files ใน directory ที่อยู๋ปัจจุบัน
+การเข้าถึง directory อืนด้วยคำสั่ง cd files or directory name 
+การย้อนกลับ หรือ ออกจาก Directory ที่อยู๋ปัจจุบัน
+
+1.  เปิด Command Prompt / Terminal เช็คว่า git ในเครื่องเป็นเวอร์ชั่นไหน
+        git --version 
+2.  สร้าง directory ที่จะเก็บงาน 
+        mk git101
+3.  ทำทุกครั้งที่มี git repository ใหม่
+        git init 
+4.  สร้างไฟล์ที่ต้องการทำงานขึ้นมา ใช้นามสกุลอะไรก็ได้
+        a.txt
+ุ5.  ตรวจสอบสถานะของไฟล์ที่สร้างหรือต้องการทำงาน
+        git status
+ึ6.  เพิ่มไฟล์ที่ทำงานเข้าไปใน staging area
+        git add ชื่อไฟล์.นามสกุลไฟล์ 
+    ในกรณีต้องการเพิ่มไฟล์เข้าไปทั้งหมดทีเดียวให้ใช้คำสั่ง 
+        git add . 
+7.  ตั้งค่าชื่อและอีเมลเพื่อระบุตัวผู้ commit
+        git config user.name "ชื่อ" 
+        git config user.email "อีเมล์ตัวเอง" จะใส่ --global หลัง config เมื่อเป็นเครื่องส่วนตัว
+8.  Commit ไฟล์ เพื่อเก็บ Version/Snapshot/Checkpoint
+        git commit -m "ตั้งชื่อ"
+9.  ดู Checkpoint ทั้งหมด
+        git log --all --decorate --oneline --graph
+10. ทำการสร้าง repository บน github
+11. เชื่อม local repository
+        git remote add <ชื่อ remote> 
+    จะมีมาให้อยู่หน้าเว็บใน repository ที่สร้างสามารถ copy มาใส่ได้ 
+    ถ้าตั้งชื่อผิด ให้ลบชื่อเก่าด้วย
+        git remote remove <ชื่อ remote>
+12. ส่งไฟล์และประวัติไปเก็บที่ github
+        git push -u origin master จะมีมาให้อยู่หน้าเว็บใน repository ที่สร้างสามารถ copy มาใส่ได้
